@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  background-color: #f3f7fa;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: inherit;
+}
+
+input {
+  margin: 0;
+}
+
+.container {
+  max-width: 960px;
+  padding: 20px 100px;
+  margin: 0 auto;
+
+  // helperStyle
+  border: 2px solid red;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
