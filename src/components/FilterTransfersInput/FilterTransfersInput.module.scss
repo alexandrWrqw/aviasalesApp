@@ -1,0 +1,79 @@
+.filter-transfers-label {
+  padding: 10px 0;
+
+  & .input {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  & .input:checked,
+  & .input:not(:checked) {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  & .input:checked + span,
+  & .input:not(:checked) + span {
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    line-height: 20px;
+    cursor: pointer;
+  }
+
+  & .input:checked + span::before,
+  & .input:not(:checked) + span::before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+
+  & .input:checked + span::before {
+    border: 1px solid #2196f3;
+  }
+
+  & .input:not(:checked) + span::before {
+    border: 1px solid #9abbce;
+  }
+
+  & .input:checked + span::after,
+  & .input:not(:checked) + span::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+
+    width: 12px;
+    height: 6px;
+
+    border-radius: 1px;
+    border-left: 3px solid #2196f3;
+    border-bottom: 3px solid #2196f3;
+
+    transform: rotate(-45deg) translateY(-50%) translateX(25%);
+    transition: all 0.2s ease-in;
+  }
+
+  & .input:not(:checked) + span::after {
+    opacity: 0;
+  }
+
+  & .input:checked + span::after {
+    opacity: 1;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    & .input:not(:checked) + span::after {
+      opacity: 0.3;
+    }
+  }
+}

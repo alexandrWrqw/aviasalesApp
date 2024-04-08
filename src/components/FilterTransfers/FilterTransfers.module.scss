@@ -9,4 +9,11 @@
 
   background-color: #fff;
   box-shadow: 0px 2px 8px 0px #0000001a;
+
+  & .title {
+    text-transform: uppercase;
+    font-weight: 650;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+  }
 }

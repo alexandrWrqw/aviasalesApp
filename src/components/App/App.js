@@ -1,17 +1,21 @@
-import './App.scss';
+import classes from './App.module.scss';
 
 import Header from '../Header/Header';
 import FilterTransfers from '../FilterTransfers/FilterTransfers';
-import AviaTickets from '../AviaTickets/AviaTickets';
+import TicketsList from '../TicketsList/TicketsList';
+import FilterTickets from '../FilterTickets/FilterTickets';
 
 function App() {
   return (
-    <div className="container">
+    <div className={classes.container}>
       <Header />
 
-      <div className="grid-container">
+      <div className={classes.grid}>
         <FilterTransfers />
-        <AviaTickets />
+        <div>
+          <FilterTickets />
+          <TicketsList />
+        </div>
       </div>
     </div>
   );

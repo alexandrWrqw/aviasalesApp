@@ -1,5 +1,6 @@
-import AmtTransfersInput from '../AmtTransfersInput/AmtTransfersInput';
-import './FilterTransfers.scss';
+import classes from './FilterTransfers.module.scss';
+
+import FilterTransfersInput from '../FilterTransfersInput/FilterTransfersInput';
 
 function FilterTransfers() {
   const transfersLabels = [
@@ -11,10 +12,10 @@ function FilterTransfers() {
   ];
 
   return (
-    <div className="filter-transfers">
-      <h2 className="title">Количество пересадок</h2>
+    <div className={classes['filter-transfers']}>
+      <h2 className={classes.title}>Количество пересадок</h2>
       {transfersLabels.map((label) => (
-        <AmtTransfersInput label={label} />
+        <FilterTransfersInput label={label} />
       ))}
     </div>
   );

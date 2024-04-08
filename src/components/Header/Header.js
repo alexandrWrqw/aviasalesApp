@@ -1,5 +1,4 @@
 import './Header.scss';
-
 import HeaderLogo from './header-logo.png';
 
 function Header() {

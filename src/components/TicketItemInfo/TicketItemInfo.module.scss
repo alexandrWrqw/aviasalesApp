@@ -1,0 +1,23 @@
+.ticket-info {
+  display: flex;
+  justify-content: space-between;
+
+  & .block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .title {
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 18px;
+    color: #a0b0b9;
+  }
+
+  & .desc {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #4a4a4a;
+  }
+}

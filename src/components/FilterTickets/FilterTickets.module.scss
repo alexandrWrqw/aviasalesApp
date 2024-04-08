@@ -1,0 +1,36 @@
+.filter-tickets {
+  display: flex;
+  margin-bottom: 20px;
+
+  border: 1px solid #dfe5ec;
+  border-radius: 10px;
+  overflow: hidden;
+
+  & .btn {
+    flex: 1;
+    background-color: #fff;
+    padding: 15px 10px;
+    border: none;
+
+    color: inherit;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-weight: 650;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+
+    transition:
+      background-color 0.2s ease-in,
+      color 0.2s ease-in;
+
+    &:not(:last-child) {
+      border-right: 1px solid #dfe5ec;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #2196f3;
+      color: #fff;
+    }
+  }
+}
