@@ -16,7 +16,8 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "no-param-reassign": "off" // in the redux i can directly reassign the state, because under the hood it converts to the correct one
   },
   "settings": {
     "react": {
