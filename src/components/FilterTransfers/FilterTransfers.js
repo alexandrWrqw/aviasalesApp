@@ -15,7 +15,11 @@ function FilterTransfers() {
     <div className={classes['filter-transfers']}>
       <h2 className={classes.title}>Количество пересадок</h2>
       {transfersLabels.map((label) => (
-        <FilterTransfersInput label={label} />
+        <FilterTransfersInput
+          key={label}
+          label={label}
+          allFiltersTransfers={transfersLabels}
+        />
       ))}
     </div>
   );

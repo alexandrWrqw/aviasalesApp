@@ -1,9 +1,9 @@
-import './Header.scss';
+import classes from './Header.module.scss';
 import HeaderLogo from './header-logo.png';
 
 function Header() {
   return (
-    <header className="header-logo">
+    <header className={classes['header-logo']}>
       <img src={HeaderLogo} alt="aviasales-logo" />
     </header>
   );

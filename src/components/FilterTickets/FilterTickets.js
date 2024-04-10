@@ -6,7 +6,7 @@ function FilterTickets() {
   return (
     <div className={classes['filter-tickets']}>
       {filterTicketsLabels.map((label) => (
-        <button className={classes.btn} type="button">
+        <button key={label} className={classes.btn} type="button">
           {label}
         </button>
       ))}
