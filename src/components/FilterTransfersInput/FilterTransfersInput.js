@@ -1,30 +1,9 @@
 import PropTypes from 'prop-types';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { addFilter, deleteFilter } from '../../store/filterTransfersSlice';
-
 import classes from './FilterTransfersInput.module.scss';
 
-function FilterTransfersInput({ label, allFiltersTransfers }) {
-  const filtersTransfers = useSelector(
-    (state) => state.filterTransfers.filterTransfers,
-  );
-  const dispatch = useDispatch();
-
-  const onTransfersFilter = () =>
-    dispatch(addFilter({ label, allFiltersTransfers }));
-  const removeTransfersFilter = () =>
-    dispatch(deleteFilter({ label, allFiltersTransfers }));
-
-  const hasFilter = filtersTransfers.includes(label);
-
-  const onToggleFilter = () => {
-    if (hasFilter) {
-      removeTransfersFilter();
-    } else {
-      onTransfersFilter();
-    }
-  };
+function FilterTransfersInput({ label, onToggleFilter, listenerCheckedInput }) {
+  const isChecked = listenerCheckedInput(label);
 
   return (
     <label className={classes['filter-transfers-label']} htmlFor={label}>
@@ -32,8 +11,8 @@ function FilterTransfersInput({ label, allFiltersTransfers }) {
         className={classes.input}
         type="checkbox"
         id={label}
-        onChange={onToggleFilter}
-        checked={hasFilter}
+        onChange={() => onToggleFilter(label)}
+        checked={isChecked}
       />
       <span>{label}</span>
     </label>
@@ -42,11 +21,14 @@ function FilterTransfersInput({ label, allFiltersTransfers }) {
 
 FilterTransfersInput.defaultProps = {
   label: '',
+  onToggleFilter: () => {},
+  listenerCheckedInput: () => {},
 };
 
 FilterTransfersInput.propTypes = {
   label: PropTypes.string,
-  allFiltersTransfers: PropTypes.array.isRequired,
+  onToggleFilter: PropTypes.func,
+  listenerCheckedInput: PropTypes.func,
 };
 
 export default FilterTransfersInput;

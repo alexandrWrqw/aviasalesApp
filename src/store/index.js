@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import filterTransfersReducer from './filterTransfersSlice';
+import filtersTransfersReducer from './filtersTransfersSlice';
 
 export default configureStore({
   reducer: {
-    filterTransfers: filterTransfersReducer,
+    filtersTransfers: filtersTransfersReducer,
   },
 });

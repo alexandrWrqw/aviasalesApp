@@ -4,33 +4,30 @@ const filterTransfersSlice = createSlice({
   name: 'filterTransfers',
 
   initialState: {
-    filterTransfers: [],
+    filtersTransfers: [],
   },
 
   reducers: {
     addFilter(state, action) {
       if (
         action.payload.label === 'Все' ||
-        action.payload.allFiltersTransfers.length - 2 ===
-          state.filterTransfers.length
+        action.payload.allFiltersTransfers.length - 1 ===
+          state.filtersTransfers.length
       ) {
-        state.filterTransfers = action.payload.allFiltersTransfers;
+        state.filtersTransfers = action.payload.allFiltersTransfers;
       } else {
-        state.filterTransfers.push(action.payload.label);
+        state.filtersTransfers.push(action.payload.label);
       }
     },
 
     deleteFilter(state, action) {
       const spliceFilterTransfers = (target) => {
-        const idx = state.filterTransfers.indexOf(target);
-        state.filterTransfers.splice(idx, 1);
+        const idx = state.filtersTransfers.indexOf(target);
+        state.filtersTransfers.splice(idx, 1);
       };
 
       if (action.payload.label === 'Все') {
-        state.filterTransfers = [];
-      } else if (state.filterTransfers.includes('Все')) {
-        spliceFilterTransfers('Все');
-        spliceFilterTransfers(action.payload.label);
+        state.filtersTransfers = [];
       } else {
         spliceFilterTransfers(action.payload.label);
       }
