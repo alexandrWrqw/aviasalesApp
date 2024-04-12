@@ -1,35 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const filterTransfersSlice = createSlice({
-  name: 'filterTransfers',
+  name: 'activeFilters',
 
   initialState: {
-    filtersTransfers: [],
+    activeFilters: [],
   },
 
   reducers: {
     addFilter(state, action) {
       if (
-        action.payload.label === 'Все' ||
-        action.payload.allFiltersTransfers.length - 1 ===
-          state.filtersTransfers.length
+        action.payload.filter.id === 'All' ||
+        action.payload.allFilters.length - 1 === state.activeFilters.length
       ) {
-        state.filtersTransfers = action.payload.allFiltersTransfers;
+        state.activeFilters = action.payload.allFilters;
       } else {
-        state.filtersTransfers.push(action.payload.label);
+        state.activeFilters.push(action.payload.filter);
       }
     },
 
     deleteFilter(state, action) {
-      const spliceFilterTransfers = (target) => {
-        const idx = state.filtersTransfers.indexOf(target);
-        state.filtersTransfers.splice(idx, 1);
+      const filterSplice = (target) => {
+        const idx = state.activeFilters.findIndex(
+          (element) => element.id === target.id,
+        );
+        state.activeFilters.splice(idx, 1);
       };
 
-      if (action.payload.label === 'Все') {
-        state.filtersTransfers = [];
+      if (action.payload.filter.id === 'All') {
+        state.activeFilters = [];
       } else {
-        spliceFilterTransfers(action.payload.label);
+        filterSplice(action.payload.filter);
       }
     },
   },

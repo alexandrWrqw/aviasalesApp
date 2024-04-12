@@ -1,0 +1,14 @@
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  & .no-results-message {
+    border: 1px solid rgba(255, 0, 0, 0.169);
+    background-color: rgba(255, 0, 0, 0.031);
+    border-radius: 10px;
+    font-size: 13px;
+    padding: 15px;
+    text-align: center;
+  }
+}

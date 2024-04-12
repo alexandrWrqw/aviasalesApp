@@ -2,33 +2,32 @@ import PropTypes from 'prop-types';
 
 import classes from './FilterTransfersInput.module.scss';
 
-function FilterTransfersInput({ label, onToggleFilter, listenerCheckedInput }) {
-  const isChecked = listenerCheckedInput(label);
+function FilterTransfersInput({ filter, onToggleFilter, isChecked }) {
+  const checked = isChecked(filter);
 
   return (
-    <label className={classes['filter-transfers-label']} htmlFor={label}>
+    <label className={classes['filter-transfers-label']} htmlFor={filter.id}>
       <input
         className={classes.input}
         type="checkbox"
-        id={label}
-        onChange={() => onToggleFilter(label)}
-        checked={isChecked}
+        id={filter.id}
+        onChange={() => onToggleFilter(filter)}
+        checked={checked}
       />
-      <span>{label}</span>
+      <span>{filter.label}</span>
     </label>
   );
 }
 
 FilterTransfersInput.defaultProps = {
-  label: '',
   onToggleFilter: () => {},
-  listenerCheckedInput: () => {},
+  isChecked: () => {},
 };
 
 FilterTransfersInput.propTypes = {
-  label: PropTypes.string,
+  filter: PropTypes.object.isRequired,
   onToggleFilter: PropTypes.func,
-  listenerCheckedInput: PropTypes.func,
+  isChecked: PropTypes.func,
 };
 
 export default FilterTransfersInput;

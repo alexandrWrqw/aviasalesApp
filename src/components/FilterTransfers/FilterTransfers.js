@@ -6,66 +6,64 @@ import classes from './FilterTransfers.module.scss';
 import FilterTransfersInput from '../FilterTransfersInput/FilterTransfersInput';
 
 function FilterTransfers() {
-  const allFiltersTransfers = [
-    'Без пересадок',
-    '1 пересадка',
-    '2 пересадки',
-    '3 пересадки',
+  const allFilters = [
+    { id: 0, label: 'Без пересадок' },
+    { id: 1, label: '1 пересадка' },
+    { id: 2, label: '2 пересадки' },
+    { id: 3, label: '3 пересадки' },
   ];
 
-  const activeFiltersTransfers = useSelector(
-    (state) => state.filtersTransfers.filtersTransfers,
+  const activeFilters = useSelector(
+    (state) => state.activeFilters.activeFilters,
   );
   const dispatch = useDispatch();
 
-  const addTransfersFilter = (label) =>
-    dispatch(addFilter({ label, allFiltersTransfers }));
+  const onFilter = (filter) => dispatch(addFilter({ filter, allFilters }));
 
-  const removeTransfersFilter = (label) =>
-    dispatch(deleteFilter({ label, allFiltersTransfers }));
+  const offFilter = (filter) => dispatch(deleteFilter({ filter, allFilters }));
 
-  const isActiveAllFilters =
-    activeFiltersTransfers.length === allFiltersTransfers.length;
+  const isActiveAllFilters = activeFilters.length === allFilters.length;
 
-  const onToggleFilter = (label) => {
-    const hasFilter = activeFiltersTransfers.includes(label);
+  const isActiveFilter = (filter) => {
+    const even = (element) => element.id === filter.id;
+    return activeFilters.some(even);
+  };
 
-    if (hasFilter) {
-      removeTransfersFilter(label);
+  const onToggleFilter = (filter) => {
+    if (isActiveFilter(filter)) {
+      offFilter(filter);
     } else {
-      addTransfersFilter(label);
+      onFilter(filter);
     }
   };
 
-  const onToggleAllFilter = (label) => {
+  const onToggleAllFilter = (filter) => {
     if (isActiveAllFilters) {
-      removeTransfersFilter(label);
+      offFilter(filter);
     } else {
-      addTransfersFilter(label);
+      onFilter(filter);
     }
   };
 
-  const listenerCheckedInput = (label) =>
-    label === 'Все'
-      ? isActiveAllFilters
-      : activeFiltersTransfers.includes(label);
+  const isChecked = (filter) =>
+    filter.id === 'All' ? isActiveAllFilters : isActiveFilter(filter);
 
   return (
     <div className={classes['filter-transfers']}>
       <h2 className={classes.title}>Количество пересадок</h2>
 
       <FilterTransfersInput
-        label="Все"
+        filter={{ id: 'All', label: 'Все' }}
         onToggleFilter={onToggleAllFilter}
-        listenerCheckedInput={listenerCheckedInput}
+        isChecked={isChecked}
       />
 
-      {allFiltersTransfers.map((label) => (
+      {allFilters.map((filter) => (
         <FilterTransfersInput
-          key={label}
-          label={label}
+          key={filter.id}
+          filter={filter}
           onToggleFilter={onToggleFilter}
-          listenerCheckedInput={listenerCheckedInput}
+          isChecked={isChecked}
         />
       ))}
     </div>
