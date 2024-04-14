@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSortTicketsTag } from '../../store/ticketsSlice';
+import { selectSortTicketsValue } from '../../store/ticketsSlice';
 
 import classes from './FilterTickets.module.scss';
 
@@ -18,7 +18,7 @@ function FilterTickets() {
           className={classes.btn}
           style={isActiveSort === label ? { backgroundColor: '#2196F3' } : null}
           type="button"
-          onClick={() => dispatch(selectSortTicketsTag(label))}
+          onClick={() => dispatch(selectSortTicketsValue(label))}
         >
           {label}
         </button>

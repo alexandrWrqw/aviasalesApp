@@ -64,7 +64,7 @@ const ticketsSlice = createSlice({
       state.tickets = [];
     },
 
-    selectSortTicketsTag(state, action) {
+    selectSortTicketsValue(state, action) {
       if (state.tickets.length !== 0) state.ticketsSortValue = action.payload;
 
       if (action.payload === 'Самый дешевый') {
@@ -108,7 +108,7 @@ const ticketsSlice = createSlice({
   },
 });
 
-export const { addFilter, deleteFilter, clearTickets, selectSortTicketsTag } =
+export const { addFilter, deleteFilter, clearTickets, selectSortTicketsValue } =
   ticketsSlice.actions;
 
 export default ticketsSlice.reducer;
