@@ -1,1 +1,1 @@
-https://alexandrwrqw.github.io/aviasalesApp/
+https://aviasales-app-theta-ten.vercel.app/
