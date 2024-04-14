@@ -30,3 +30,27 @@ input {
   grid-template-columns: 1fr 2fr;
   gap: 20px;
 }
+
+@media screen and (max-width: 750px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .container {
+    padding: 20px 130px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    padding: 20px 80px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .container {
+    padding: 20px 40px;
+  }
+}
