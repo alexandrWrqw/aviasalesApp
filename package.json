@@ -1,7 +1,6 @@
 {
   "name": "aviasales-app",
   "version": "0.1.0",
-  "homepage": "https://alexandrWrqw.github.io/aviasalesApp",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
