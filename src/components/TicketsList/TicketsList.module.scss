@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 20px;
 
+  position: relative;
+
   & .no-results-message {
     border: 1px solid rgba(255, 0, 0, 0.169);
     background-color: rgba(255, 0, 0, 0.031);
@@ -10,5 +12,58 @@
     font-size: 13px;
     padding: 15px;
     text-align: center;
+  }
+
+  & .loader {
+    content: '';
+    position: absolute;
+    top: -11px;
+    height: 2px;
+    border-radius: 10px;
+    width: 100%;
+    --c: no-repeat linear-gradient(#2196f3 0 0);
+    background: var(--c), var(--c), #dfe5ec;
+    background-size: 60% 100%;
+    animation: l16 3s infinite;
+  }
+
+  & .more-btn {
+    border: none;
+    padding: 15px 0;
+    border-radius: 10px;
+    background-color: #2196f3;
+
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 500;
+    color: white;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    transition: background-color 0.2s ease-in;
+
+    &:hover {
+      background-color: #1879f9;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes l16 {
+  0% {
+    background-position:
+      -150% 0,
+      -150% 0;
+  }
+  66% {
+    background-position:
+      250% 0,
+      -150% 0;
+  }
+  100% {
+    background-position:
+      250% 0,
+      250% 0;
   }
 }

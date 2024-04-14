@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addFilter, deleteFilter } from '../../store/filtersTransfersSlice';
+import { addFilter, deleteFilter } from '../../store/ticketsSlice';
 
 import classes from './FilterTransfers.module.scss';
 
@@ -13,9 +13,7 @@ function FilterTransfers() {
     { id: 3, label: '3 пересадки' },
   ];
 
-  const activeFilters = useSelector(
-    (state) => state.activeFilters.activeFilters,
-  );
+  const activeFilters = useSelector((state) => state.tickets.activeFilters);
   const dispatch = useDispatch();
 
   const onFilter = (filter) => dispatch(addFilter({ filter, allFilters }));
