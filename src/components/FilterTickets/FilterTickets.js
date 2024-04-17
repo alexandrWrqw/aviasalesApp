@@ -8,7 +8,7 @@ function FilterTickets() {
 
   const isActiveSort = useSelector((state) => state.tickets.ticketsSortValue);
 
-  const filterTicketsLabels = ['Самый дешевый', 'Самый быстрый'];
+  const filterTicketsLabels = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
 
   return (
     <div className={classes['filter-tickets']}>

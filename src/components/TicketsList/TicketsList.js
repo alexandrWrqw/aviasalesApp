@@ -11,11 +11,11 @@ function TicketsList() {
 
   let maxKey = 1;
 
-  const tickets = useSelector((state) => state.tickets.tickets);
+  const filteredTickets = useSelector((state) => state.tickets.filteredTickets);
   const activeFilters = useSelector((state) => state.tickets.activeFilters);
   const isLoading = useSelector((state) => state.tickets.isLoading);
 
-  const maxTickets = tickets.slice(0, maxValue);
+  const maxTickets = filteredTickets.slice(0, maxValue);
 
   const content = maxTickets.map((ticket) => (
     <TicketItem key={maxKey++} ticket={ticket} />
@@ -29,7 +29,7 @@ function TicketsList() {
 
   const loadingBar = isLoading ? <div className={classes.loader} /> : null;
 
-  const moreBtn = tickets.length ? (
+  const moreBtn = filteredTickets.length ? (
     <button
       className={classes['more-btn']}
       type="button"
@@ -42,7 +42,7 @@ function TicketsList() {
   return (
     <div className={classes['tickets-list']}>
       {loadingBar}
-      {tickets.length ? content : noResults}
+      {filteredTickets.length ? content : noResults}
       {moreBtn}
     </div>
   );

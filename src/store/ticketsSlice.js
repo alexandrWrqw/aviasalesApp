@@ -27,14 +27,20 @@ const ticketsSlice = createSlice({
 
   initialState: {
     searchId: null,
+
     activeFilters: [],
-    tickets: [],
     ticketsSortValue: null,
+
+    tickets: [],
+    filteredTickets: [],
+
     isLoading: false,
   },
 
   reducers: {
     addFilter(state, action) {
+      state.filteredTickets = [];
+
       if (
         action.payload.filter.id === 'All' ||
         action.payload.allFilters.length - 1 === state.activeFilters.length
@@ -46,6 +52,8 @@ const ticketsSlice = createSlice({
     },
 
     deleteFilter(state, action) {
+      state.filteredTickets = [];
+
       const filterSplice = (target) => {
         const idx = state.activeFilters.findIndex(
           (element) => element.id === target.id,
@@ -60,22 +68,41 @@ const ticketsSlice = createSlice({
       }
     },
 
-    clearTickets(state) {
-      state.tickets = [];
-    },
+    updateFilteredTickets(state) {
+      state.activeFilters.forEach((filter) => {
+        state.filteredTickets = state.tickets.filter(
+          (ticket) =>
+            ticket.segments[0].stops.length === filter.id ||
+            ticket.segments[1].stops.length === filter.id,
+        );
+      });
 
-    selectSortTicketsValue(state, action) {
-      if (state.tickets.length !== 0) state.ticketsSortValue = action.payload;
-
-      if (action.payload === 'Самый дешевый') {
-        state.tickets = state.tickets.sort((a, b) => a.price - b.price);
+      if (state.ticketsSortValue === 'Самый дешевый') {
+        state.filteredTickets = state.filteredTickets.sort(
+          (a, b) => a.price - b.price,
+        );
       }
 
-      if (action.payload === 'Самый быстрый') {
-        state.tickets = state.tickets.sort(
+      if (state.ticketsSortValue === 'Самый быстрый') {
+        state.filteredTickets = state.filteredTickets.sort(
           (a, b) => a.segments[0].duration - b.segments[0].duration,
         );
       }
+
+      if (state.ticketsSortValue === 'Оптимальный') {
+        state.filteredTickets = state.filteredTickets.filter(
+          (ticket) => ticket.price < 50000 && ticket.segments[0].duration < 900,
+        );
+      }
+    },
+
+    selectSortTicketsValue(state, action) {
+      state.ticketsSortValue = action.payload;
+    },
+
+    selectDefaultFilters(state, action) {
+      state.activeFilters = [...action.payload];
+      state.ticketsSortValue = 'Оптимальный';
     },
   },
 
@@ -89,26 +116,21 @@ const ticketsSlice = createSlice({
     });
 
     builder.addCase(fetchTicketsPack.fulfilled, (state, action) => {
-      if (!action.payload.stop) {
-        let filteredTickets = [];
+      if (!action.payload.stop)
+        state.tickets = [...state.tickets, ...action.payload.tickets];
 
-        state.activeFilters.forEach((filter) => {
-          filteredTickets = action.payload.tickets.filter(
-            (ticket) =>
-              ticket.segments[0].stops.length === filter.id ||
-              ticket.segments[1].stops.length === filter.id,
-          );
-        });
-
-        state.tickets = [...state.tickets, ...filteredTickets];
-      }
-
-      state.isLoading = false;
+      if (action.payload.stop) state.isLoading = false;
     });
   },
 });
 
-export const { addFilter, deleteFilter, clearTickets, selectSortTicketsValue } =
-  ticketsSlice.actions;
+export const {
+  addFilter,
+  deleteFilter,
+  clearTickets,
+  selectSortTicketsValue,
+  updateFilteredTickets,
+  selectDefaultFilters,
+} = ticketsSlice.actions;
 
 export default ticketsSlice.reducer;

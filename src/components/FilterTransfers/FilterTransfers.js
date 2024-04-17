@@ -1,5 +1,11 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFilter, deleteFilter } from '../../store/ticketsSlice';
+
+import {
+  addFilter,
+  deleteFilter,
+  selectDefaultFilters,
+} from '../../store/ticketsSlice';
 
 import classes from './FilterTransfers.module.scss';
 
@@ -13,12 +19,14 @@ function FilterTransfers() {
     { id: 3, label: '3 пересадки' },
   ];
 
-  const activeFilters = useSelector((state) => state.tickets.activeFilters);
   const dispatch = useDispatch();
 
-  const onFilter = (filter) => dispatch(addFilter({ filter, allFilters }));
+  const activeFilters = useSelector((state) => state.tickets.activeFilters);
 
+  const onFilter = (filter) => dispatch(addFilter({ filter, allFilters }));
   const offFilter = (filter) => dispatch(deleteFilter({ filter, allFilters }));
+  const addDefaultFilters = (filters) =>
+    dispatch(selectDefaultFilters(filters));
 
   const isActiveAllFilters = activeFilters.length === allFilters.length;
 
@@ -45,6 +53,10 @@ function FilterTransfers() {
 
   const isChecked = (filter) =>
     filter.id === 'All' ? isActiveAllFilters : isActiveFilter(filter);
+
+  useEffect(() => {
+    addDefaultFilters(allFilters);
+  }, []);
 
   return (
     <div className={classes['filter-transfers']}>

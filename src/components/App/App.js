@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTicketsPack,
   fetchSearchId,
-  clearTickets,
+  updateFilteredTickets,
 } from '../../store/ticketsSlice';
 
 import classes from './App.module.scss';
@@ -18,11 +18,14 @@ function App() {
 
   const fetchSearchIdDispatch = () => dispatch(fetchSearchId());
   const fetchTicketsPackDispatch = (id) => dispatch(fetchTicketsPack(id));
-  const clearTicketsDispatch = () => dispatch(clearTickets());
+  const updateFilteredTicketsDispatch = () => dispatch(updateFilteredTickets());
 
   const tickets = useSelector((state) => state.tickets.tickets);
   const searchId = useSelector((state) => state.tickets.searchId);
   const activeFilters = useSelector((state) => state.tickets.activeFilters);
+  const ticketsSortValue = useSelector(
+    (state) => state.tickets.ticketsSortValue,
+  );
 
   const errorCatchingFetchTickets = (id) => {
     fetchTicketsPackDispatch(id)
@@ -32,17 +35,17 @@ function App() {
 
   useEffect(() => {
     if (searchId === null) fetchSearchIdDispatch();
-  }, [searchId]);
+  }, []);
 
   useEffect(() => {
-    if (searchId !== null) fetchSearchIdDispatch();
-    clearTicketsDispatch();
-  }, [activeFilters]);
-
-  useEffect(() => {
-    if (searchId !== null && activeFilters.length !== 0)
+    if (searchId !== null && activeFilters.length !== 0) {
       errorCatchingFetchTickets(searchId);
+    }
   }, [searchId, tickets]);
+
+  useEffect(() => {
+    updateFilteredTicketsDispatch();
+  }, [tickets, activeFilters, ticketsSortValue]);
 
   return (
     <div className={classes.container}>
